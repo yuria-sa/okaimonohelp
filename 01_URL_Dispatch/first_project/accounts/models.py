@@ -15,3 +15,15 @@ class User(AbstractBaseUser , PermissionsMixin):
     
     class Meta:
         db_table = 'user'
+        
+class UserActivateToken(models.Model):
+    token = models.UUIDField(db_index=True, unique=True)
+    expired_at = models.DateTimeField()
+    user = models.OneToOneField(
+        'user',
+        on_delete=models.CASCADE,
+        related_name='user_activate_token',
+        )
+    
+    class Meta:
+        db_table = 'user_activate_token'
